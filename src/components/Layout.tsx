@@ -5,21 +5,19 @@ import React from "react";
 
 function Layout({
   children,
-  userProfile,
-  generalInfo,
+  settings,
 }: {
   children: React.ReactNode;
-  userProfile: User;
-  generalInfo: GeneralInfo;
+  settings: Settings;
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <Header userProfile={userProfile} />
-      <InfoBanner data={generalInfo.infoBanner} />
+      <Header settings={settings} />
+      <InfoBanner infoBannerData={settings.infoBanner} />
       <main className="screen-margin h-auto flex-1">
         <div className="mx-auto">{children}</div>
       </main>
-      <Footer userProfile={userProfile} />
+      <Footer settings={settings} />
     </div>
   );
 }

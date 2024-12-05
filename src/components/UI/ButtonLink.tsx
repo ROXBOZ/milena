@@ -16,7 +16,7 @@ export const ButtonLink = ({
       target={isInternalLink ? "_self" : "_blank"}
       className={`whitespace-nowrap rounded-full ${
         color === "dark"
-          ? "bg-slate-900 text-slate-50 hover:ring-slate-800 active:bg-slate-800"
+          ? "bg-slate-800 text-slate-50 hover:ring-slate-700 active:bg-slate-700"
           : ""
       } px-4 py-2 ring-inset hover:ring`}
       href={href}

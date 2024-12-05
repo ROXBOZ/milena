@@ -1,11 +1,3 @@
-interface User {
-  name: string;
-}
-
-interface GeneralInfo {
-  infoBanner: InfoBanner;
-}
-
 interface InfoBanner {
   text: {
     fr: string;
@@ -18,4 +10,9 @@ interface InfoBanner {
     };
     url: string;
   };
+}
+
+interface Settings {
+  userName: string;
+  infoBanner: InfoBanner;
 }

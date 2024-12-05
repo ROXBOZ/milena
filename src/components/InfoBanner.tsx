@@ -3,29 +3,34 @@ import React, { useEffect, useState } from "react";
 import { ButtonLink } from "./UI/ButtonLink";
 import gsap from "gsap";
 
-function InfoBanner({ data }: { data: InfoBanner }) {
+function InfoBanner({ infoBannerData }: { infoBannerData: InfoBanner }) {
   const [showBanner, setShowBanner] = useState(true);
   const lang = "fr";
 
-  const isInternalLink = data.link.url.includes("milena");
+  const isInternalLink = infoBannerData.link?.url.includes("milena");
 
-  useEffect(() => {
-    gsap.from(".banner", { y: -100, duration: 0.5, delay: 2 });
-  });
+  // useEffect(() => {
+  //   gsap.from(".banner", {
+  //     scaleX: 0,
+  //     transformOrigin: "0% 50%",
+  //     duration: 0.4,
+  //     delay: 1,
+  //   });
+  // });
 
   return (
     showBanner &&
-    data.text && (
+    infoBannerData.text && (
       <div className="banner screen-margin flex flex-wrap items-baseline justify-between gap-3 bg-gradient-to-b from-cyan-900 to-cyan-700 py-2 text-slate-50">
-        <div>{data.text[lang]}</div>{" "}
+        <div>{infoBannerData.text[lang]}</div>{" "}
         <div className="flex items-baseline gap-12">
-          {data.link && (
+          {infoBannerData.link && (
             <ButtonLink
-              href={data.link.url}
+              href={infoBannerData.link.url}
               color="dark"
               isInternalLink={isInternalLink}
             >
-              {data.link.label[lang].toLowerCase()}
+              {infoBannerData.link.label[lang].toLowerCase()}
             </ButtonLink>
           )}
 

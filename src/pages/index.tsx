@@ -1,33 +1,17 @@
 import Layout from "@/components/Layout";
 import { client } from "../../config/sanity";
 
-export default function Home({
-  userProfile,
-  generalInfo,
-}: {
-  userProfile: User;
-  generalInfo: GeneralInfo;
-}) {
-  return (
-    <Layout userProfile={userProfile} generalInfo={generalInfo}>
-      Homepage
-    </Layout>
-  );
+export default function Home({ settings }: { settings: Settings }) {
+  return <Layout settings={settings}>Homepage</Layout>;
 }
 
 export const getStaticProps = async () => {
   try {
-    const userProfile: User = await client.fetch(
-      '*[_type == "userProfile"][0]{name}',
-    );
-    const generalInfo = await client.fetch(
-      '*[_type == "general"][0]{infoBanner}',
-    );
+    const settings = await client.fetch('*[_type == "settings"][0]');
 
     return {
       props: {
-        userProfile,
-        generalInfo,
+        settings,
       },
     };
   } catch (error) {
