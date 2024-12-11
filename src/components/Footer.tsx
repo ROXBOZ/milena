@@ -4,8 +4,7 @@ import React from "react";
 function Footer({ settings }: { settings: Settings }) {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="screen-margin flex flex-col gap-12 bg-slate-200 pb-1 pt-6">
-      <div></div>
+    <footer className="screen-margin flex flex-col gap-12 border-t border-slate-950 pb-1 pt-4">
       <div className="text-xs">
         © {settings.userName}, {currentYear}. Site web par{" "}
         <Link className="font-semibold" href="https://www.velma.studio">

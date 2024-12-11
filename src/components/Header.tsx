@@ -1,10 +1,10 @@
 import Logo from "./Logo";
 import React from "react";
 
-function Header({ settings }: { settings: Settings }) {
+function Header({ isLoaderFinished }: { isLoaderFinished: boolean }) {
   return (
-    <header className="screen-margin z-30 bg-slate-200 py-4">
-      <Logo />
+    <header className="screen-margin border-b border-slate-950 py-4">
+      {/* <Logo isLoaderFinished={isLoaderFinished} /> */}
     </header>
   );
 }

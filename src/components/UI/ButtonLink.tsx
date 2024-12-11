@@ -18,7 +18,7 @@ export const ButtonLink = ({
         color === "dark"
           ? "bg-slate-800 text-slate-50 hover:ring-slate-700 active:bg-slate-700"
           : ""
-      } px-4 py-2 ring-inset hover:ring`}
+      } px-4 py-1 ring-inset hover:ring`}
       href={href}
     >
       {children}

@@ -16,3 +16,10 @@ interface Settings {
   userName: string;
   infoBanner: InfoBanner;
 }
+
+interface Project {
+  title: {
+    fr: string;
+    en: string;
+  };
+}
