@@ -4,6 +4,7 @@ import gsap from "gsap";
 
 function Portfolio({ projects }: { projects: Project[] }) {
   useEffect(() => {
+    console.log("portfolio animate");
     gsap.fromTo(
       ".project",
       {

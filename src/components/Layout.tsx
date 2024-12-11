@@ -18,11 +18,15 @@ function Layout({
   return (
     <div className="flex min-h-screen flex-col overflow-hidden">
       <AnimationOnLoad onComplete={() => setIsLoaderFinished(true)} />
-      <Header isLoaderFinished={isLoaderFinished} />
-      <InfoBanner
-        infoBannerData={settings.infoBanner}
-        isLoaderFinished={isLoaderFinished}
-      />
+      {isLoaderFinished && (
+        <>
+          <Header isLoaderFinished={isLoaderFinished} />
+          <InfoBanner
+            infoBannerData={settings.infoBanner}
+            isLoaderFinished={isLoaderFinished}
+          />
+        </>
+      )}
       <main className="flex h-auto flex-1 overflow-x-auto">
         <div className="flex flex-1">{children}</div>
       </main>

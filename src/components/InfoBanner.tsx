@@ -9,32 +9,33 @@ function InfoBanner({
   infoBannerData: InfoBanner;
   isLoaderFinished: boolean;
 }) {
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const lang = "fr";
 
   const isInternalLink = infoBannerData.link?.url.includes("milena");
 
-  useEffect(() => {
-    if (isLoaderFinished && !showBanner) {
-      setShowBanner(true); // Update state to trigger rendering
-      gsap.fromTo(
-        ".banner",
-        {
-          height: 0,
-          opacity: 0,
-          overflow: "hidden",
-          clipPath: "inset(0 0 100% 0)",
-        },
-        {
-          height: "auto",
-          opacity: 1,
-          clipPath: "inset(0 0 0% 0)",
-          duration: 0.5,
-          ease: "power2.out",
-        },
-      );
-    }
-  }, [isLoaderFinished, showBanner]);
+  // useEffect(() => {
+  //   if (isLoaderFinished && !showBanner) {
+  //     setShowBanner(true);
+  //     console.log("banner animate");
+  //     gsap.fromTo(
+  //       ".banner",
+  //       {
+  //         height: 0,
+  //         opacity: 0,
+  //         overflow: "hidden",
+  //         clipPath: "inset(0 0 100% 0)",
+  //       },
+  //       {
+  //         height: "auto",
+  //         opacity: 1,
+  //         clipPath: "inset(0 0 0% 0)",
+  //         duration: 0.5,
+  //         ease: "power2.out",
+  //       },
+  //     );
+  //   }
+  // }, [isLoaderFinished, showBanner]);
 
   return (
     showBanner &&

@@ -9,6 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {},
+      clipPath: {
+        inset: "inset(0 0 100% 0)",
+      },
     },
   },
   plugins: [],
