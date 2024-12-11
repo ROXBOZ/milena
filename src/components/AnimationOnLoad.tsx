@@ -68,7 +68,7 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   return (
-    <div className="modal-container absolute left-0 top-0 flex h-screen w-screen items-center justify-center bg-white">
+    <div className="modal-container absolute left-0 top-0 flex h-screen w-screen items-center justify-center bg-slate-50">
       <div className="loaderLogoContainer -mt-12 flex size-36 flex-col items-center gap-2">
         <Image
           className="loaderLogo scale-90"

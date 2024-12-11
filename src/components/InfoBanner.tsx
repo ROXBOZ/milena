@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { ButtonLink } from "./UI/ButtonLink";
 import gsap from "gsap";
 
 function InfoBanner({
@@ -14,43 +15,43 @@ function InfoBanner({
 
   const isInternalLink = infoBannerData.link?.url.includes("milena");
 
-  // useEffect(() => {
-  //   if (isLoaderFinished && !showBanner) {
-  //     setShowBanner(true);
-  //     console.log("banner animate");
-  //     gsap.fromTo(
-  //       ".banner",
-  //       {
-  //         height: 0,
-  //         opacity: 0,
-  //         overflow: "hidden",
-  //         clipPath: "inset(0 0 100% 0)",
-  //       },
-  //       {
-  //         height: "auto",
-  //         opacity: 1,
-  //         clipPath: "inset(0 0 0% 0)",
-  //         duration: 0.5,
-  //         ease: "power2.out",
-  //       },
-  //     );
-  //   }
-  // }, [isLoaderFinished, showBanner]);
+  useEffect(() => {
+    if (isLoaderFinished) {
+      setShowBanner(true);
+      console.log("banner animate");
+      gsap.fromTo(
+        ".banner",
+        {
+          height: 0,
+          opacity: 0,
+          overflow: "hidden",
+          clipPath: "inset(0 0 100% 0)",
+        },
+        {
+          height: "auto",
+          opacity: 1,
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.5,
+          ease: "power2.out",
+        },
+      );
+    }
+  }, [isLoaderFinished]);
 
   return (
     showBanner &&
     infoBannerData.text && (
-      <div className="banner screen-margin flex flex-wrap items-baseline justify-between gap-3 bg-slate-950 bg-gradient-to-b py-2 text-slate-50">
+      <div className="banner screen-margin flex flex-wrap items-baseline justify-between gap-3 bg-slate-950 bg-gradient-to-b py-3 text-slate-50">
         <div>{infoBannerData.text[lang]}</div>
         <div className="flex items-baseline gap-12">
           {infoBannerData.link && (
-            <a
+            <ButtonLink
               href={infoBannerData.link.url}
-              className="text-link"
-              target={isInternalLink ? "_self" : "_blank"}
+              color="light"
+              isInternalLink={isInternalLink}
             >
               {infoBannerData.link.label[lang].toLowerCase()}
-            </a>
+            </ButtonLink>
           )}
           <button
             onClick={() => setShowBanner(false)}

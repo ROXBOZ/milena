@@ -11,6 +11,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
         opacity: 0,
       },
       {
+        delay: 1,
         duration: 1,
         opacity: 1,
         stagger: 0.2,
@@ -24,7 +25,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
         {projects.map((project: Project, index: number) => (
           <div
             key={index}
-            className="project flex aspect-[2/3] h-full shrink-0 bg-black"
+            className="project flex aspect-[2/3] h-full shrink-0 bg-slate-950"
           >
             <h2>{project.title.fr}</h2>
           </div>
