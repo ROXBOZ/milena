@@ -63,7 +63,7 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
           },
         });
     }
-  }, []);
+  }, [onComplete]);
 
   return (
     <div className="modal-container absolute left-0 top-0 flex h-screen w-screen items-center justify-center bg-slate-50">

@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import InfoBanner from "./InfoBanner";
 import React from "react";
+import { useRouter } from "next/router";
 
 function Layout({
   children,
@@ -15,21 +16,25 @@ function Layout({
   settings: Settings;
   isLoaderFinished: boolean;
   setIsLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>;
-  menus: { headerMenu: any }[];
+  menus: Menus;
 }) {
+  const currentPath = useRouter().pathname;
+  const isHome = currentPath === "/";
+
   return (
     <div className="flex min-h-screen flex-col overflow-hidden">
-      <AnimationOnLoad onComplete={() => setIsLoaderFinished(true)} />
+      {isHome && (
+        <AnimationOnLoad onComplete={() => setIsLoaderFinished(true)} />
+      )}
       {isLoaderFinished && (
         <>
-          <Header
-            isLoaderFinished={isLoaderFinished}
-            menu={menus[0].headerMenu}
-          />
-          <InfoBanner
-            infoBannerData={settings.infoBanner}
-            isLoaderFinished={isLoaderFinished}
-          />
+          <Header isLoaderFinished={isLoaderFinished} menu={menus.headerMenu} />
+          {isHome && (
+            <InfoBanner
+              infoBannerData={settings.infoBanner}
+              isLoaderFinished={isLoaderFinished}
+            />
+          )}
         </>
       )}
       <main className="flex h-auto flex-1 overflow-x-auto">

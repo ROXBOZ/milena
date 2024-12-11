@@ -27,6 +27,11 @@ interface Project {
     en: string;
   };
 
+  slug: {
+    fr: { current: string };
+    en: { current: string };
+  };
+
   categories: string[];
   year: {
     start: number;
@@ -43,17 +48,43 @@ interface Project {
   };
 }
 
-// interface Menu {
-//   name: {
-//     fr: string;
-//     en: string;
+// interface CurrentProject {
+//   title: { fr: string; en: string };
+//   slug: { fr: string; en: string };
+//   cover: {
+//     image: {
+//       asset: {
+//         _id: string;
+//         metadata: { lqip: string };
+//       };
+//     };
+//     alt: { fr: string; en: string };
+//     copyright: { fr: string; en: string };
 //   };
-//   slug: {
-//     fr: { current: string };
-//     en: { current: string };
+//   description: { fr: string; en: string };
+//   hoverImage: {
+//     asset: {
+//       _id: string;
+//       metadata: { lqip: string };
+//     };
 //   };
 // }
 
 interface Menus {
-  headerMenu: Menu[];
+  headerMenu: HeaderMenu[];
+}
+
+interface HeaderMenu {
+  name: {
+    fr: string;
+    en: string;
+  };
+  slug: {
+    fr: { current: string };
+    en: { current: string };
+  };
+}
+
+interface LayoutMenu {
+  headerMenu: HeaderMenu[];
 }

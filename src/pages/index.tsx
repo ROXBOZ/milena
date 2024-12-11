@@ -11,7 +11,7 @@ export default function Home({
 }: {
   settings: Settings;
   projects: Project[];
-  menus: { headerMenu: any }[];
+  menus: Menus;
 }) {
   const [isLoaderFinished, setIsLoaderFinished] = useState(false);
 
@@ -29,11 +29,11 @@ export default function Home({
 
 export const getStaticProps = async () => {
   try {
+    const menus = await client.fetch('*[_type == "menus"]{headerMenu[]->}');
     const settings = await client.fetch('*[_type == "settings"][0]');
     const projects = await client.fetch(
       '*[_type == "project"]{..., cover{..., image{..., asset->{..., metadata {..., lqip}}},  hoverImage{..., asset->{..., metadata {..., lqip}}}}}',
     );
-    const menus = await client.fetch('*[_type == "menus"]{headerMenu[]->}');
     return {
       props: {
         settings,

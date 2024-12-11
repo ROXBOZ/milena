@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import Image from "next/image";
-import { Span } from "next/dist/trace";
+import Link from "next/link";
 import gsap from "gsap";
 import { useSanityImage } from "../../config/sanity";
 
@@ -21,30 +21,37 @@ function Portfolio({ projects }: { projects: Project[] }) {
       },
     );
   }, []);
-
   const SanityImage = ({
     image,
     alt,
     lang,
+    copyright,
   }: {
-    image: any;
+    image: {
+      asset: {
+        metadata: { lqip: string };
+      };
+    };
     alt: { fr: string; en: string };
     lang: "fr" | "en";
+    copyright: string;
   }) => {
     const imageProps = useSanityImage(image);
     if (!imageProps || !imageProps.src) {
-      console.error("Image props are undefined or null", image);
       return null;
     }
     return (
-      <Image
-        {...imageProps}
-        blurDataURL={image.asset.metadata.lqip}
-        alt={alt[lang]}
-        placeholder="blur"
-        width={2000}
-        height={1000}
-      />
+      <figure>
+        <Image
+          {...imageProps}
+          blurDataURL={image.asset.metadata.lqip}
+          alt={alt[lang]}
+          placeholder="blur"
+          width={2000}
+          height={1000}
+        />
+        <label className="sr-only">© {copyright}</label>
+      </figure>
     );
   };
   const ProjectLabel = ({
@@ -53,7 +60,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
     year,
   }: {
     title: { fr: string; en: string };
-    categories: any;
+    categories: string[];
     year: { start: number; end: number };
   }) => {
     const categoryTranslations: {
@@ -66,7 +73,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
     return (
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 to-transparent px-4 pb-2 pt-8">
         <h2 className="font-semibold text-slate-50">{title[lang]}</h2>
-        <div className="flex items-baseline justify-between text-sm text-slate-300">
+        <div className="flex items-baseline justify-between text-slate-300">
           {categories && (
             <p>
               {categories
@@ -94,38 +101,47 @@ function Portfolio({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <div className="max-w-screen h-full flex-1 bg-slate-50 py-3">
+    <div className="max-w-screen h-full flex-1 bg-slate-50 p-3">
       <h1 className="sr-only">Porfolio Milena Buckel</h1>
       <div className="scrollbar-hide flex h-full gap-3 overflow-x-scroll">
         {projects.map((project: Project, index: number) => {
           return (
-            <div
-              key={index}
-              className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-slate-950"
-            >
-              {/* <div className="absolute bottom-0 right-0 z-30 -translate-y-12 translate-x-8 -rotate-90 bg-black/50 p-1 text-xs text-white">
-                ©{project.cover.copyright}
-              </div> */}
-              <div className="absolute left-0 top-0 z-20 transition-all delay-300 duration-500 group-hover:opacity-0">
-                <SanityImage
-                  image={project.cover.image}
-                  alt={project.cover.alt}
-                  lang={lang}
-                />
+            <Link key={index} href={`portfolio/${project.slug[lang].current}`}>
+              <div className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-slate-950">
+                <div
+                  className={`absolute left-0 top-0 z-20 transition-all delay-300 duration-500 group-hover:opacity-0`}
+                >
+                  <SanityImage
+                    image={project.cover.image}
+                    alt={project.cover.alt}
+                    lang={lang}
+                    copyright={project.cover.copyright}
+                  />
+                </div>
+                <div className="absolute left-0 top-0 z-10">
+                  <ProjectLabel
+                    title={project.title}
+                    categories={project.categories}
+                    year={project.year}
+                  />
+                  {project.cover.hoverImage ? (
+                    <SanityImage
+                      lang={lang}
+                      image={project.cover.hoverImage}
+                      alt={project.cover.alt}
+                      copyright={project.cover.copyright}
+                    />
+                  ) : (
+                    <SanityImage
+                      image={project.cover.image}
+                      alt={project.cover.alt}
+                      lang={lang}
+                      copyright={project.cover.copyright}
+                    />
+                  )}
+                </div>
               </div>
-              <div className="absolute left-0 top-0 z-10">
-                <ProjectLabel
-                  title={project.title}
-                  categories={project.categories}
-                  year={project.year}
-                />
-                <SanityImage
-                  lang={lang}
-                  image={project.cover.hoverImage}
-                  alt={project.cover.alt}
-                />
-              </div>
-            </div>
+            </Link>
           );
         })}
       </div>
