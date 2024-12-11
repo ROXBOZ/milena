@@ -18,7 +18,7 @@ function InfoBanner({
   useEffect(() => {
     if (isLoaderFinished) {
       setShowBanner(true);
-      console.log("banner animate");
+
       gsap.fromTo(
         ".banner",
         {
@@ -55,7 +55,7 @@ function InfoBanner({
           )}
           <button
             onClick={() => setShowBanner(false)}
-            className="flex aspect-square rounded-full p-3 text-lg ring-inset transition-all delay-100 hover:bg-slate-900 hover:ring-slate-800 active:bg-slate-800"
+            className="flex aspect-square rounded-full p-3 ring-inset transition-all delay-100 hover:bg-slate-900 hover:ring-slate-800 active:bg-slate-800"
           >
             <span className="leading-3">✕</span>
             <span className="sr-only">fermer</span>

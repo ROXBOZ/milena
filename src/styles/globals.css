@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html {
+  /* sm:border-orange-500 md:border-red-500 lg:border-green-500 xl:border-violet-500 2xl:border-blue-500 border-8 border-yellow-500 */
   @apply bg-slate-50 text-slate-950;
 }
 

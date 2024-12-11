@@ -11,7 +11,6 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
 
     const tl = gsap.timeline({
       onComplete: () => {
-        console.log("Loader animation completed");
         onComplete();
       },
     });
@@ -60,7 +59,6 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
           ease: "expo.in",
           delay: 0.5,
           onComplete: () => {
-            console.log("Removing modal-container");
             modal.remove();
           },
         });
@@ -76,6 +74,7 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
           width={500}
           height={500}
           src="m.svg"
+          priority
         />
         <span className="loaderName scale-90 font-semibold">Milena Buckel</span>
       </div>

@@ -9,18 +9,23 @@ function Layout({
   settings,
   isLoaderFinished,
   setIsLoaderFinished,
+  menus,
 }: {
   children: React.ReactNode;
   settings: Settings;
   isLoaderFinished: boolean;
   setIsLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>;
+  menus: { headerMenu: any }[];
 }) {
   return (
     <div className="flex min-h-screen flex-col overflow-hidden">
       <AnimationOnLoad onComplete={() => setIsLoaderFinished(true)} />
       {isLoaderFinished && (
         <>
-          <Header isLoaderFinished={isLoaderFinished} />
+          <Header
+            isLoaderFinished={isLoaderFinished}
+            menu={menus[0].headerMenu}
+          />
           <InfoBanner
             infoBannerData={settings.infoBanner}
             isLoaderFinished={isLoaderFinished}
