@@ -16,7 +16,7 @@ function Layout({
   settings: Settings;
   isLoaderFinished: boolean;
   setIsLoaderFinished: React.Dispatch<React.SetStateAction<boolean>>;
-  menus: Menus;
+  menus: Menus[];
 }) {
   const currentPath = useRouter().pathname;
   const isHome = currentPath === "/";
@@ -28,7 +28,10 @@ function Layout({
       )}
       {isLoaderFinished && (
         <>
-          <Header isLoaderFinished={isLoaderFinished} menu={menus.headerMenu} />
+          <Header
+            isLoaderFinished={isLoaderFinished}
+            menu={menus[0].headerMenu}
+          />
           {isHome && (
             <InfoBanner
               infoBannerData={settings.infoBanner}

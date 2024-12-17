@@ -11,10 +11,10 @@ export default function Home({
 }: {
   settings: Settings;
   projects: Project[];
-  menus: Menus;
+  menus: Menus[];
 }) {
   const [isLoaderFinished, setIsLoaderFinished] = useState(false);
-
+  console.log("menus home", menus);
   return (
     <Layout
       settings={settings}

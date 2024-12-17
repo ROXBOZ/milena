@@ -73,6 +73,7 @@ interface Project {
 interface Menus {
   headerMenu: HeaderMenu[];
 }
+[0];
 
 interface HeaderMenu {
   name: {

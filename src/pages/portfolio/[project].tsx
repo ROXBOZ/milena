@@ -10,7 +10,7 @@ function Project({
 }: {
   settings: Settings;
   currentProject: Project;
-  menus: Menus;
+  menus: Menus[];
 }) {
   const lang = "fr";
   const [isLoaderFinished, setIsLoaderFinished] = useState(false);
