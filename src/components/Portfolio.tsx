@@ -5,6 +5,49 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useSanityImage } from "../../config/sanity";
 
+export const SanityImage = ({
+  image,
+  alt,
+  lang,
+  copyright,
+}: {
+  image: {
+    asset: {
+      metadata: { lqip: string };
+    };
+  };
+  alt: { fr: string; en: string };
+  lang: "fr" | "en";
+  copyright: string;
+}) => {
+  const imageProps = useSanityImage(image);
+  if (!imageProps || !imageProps.src) {
+    return null;
+  }
+  return (
+    <figure>
+      <Image
+        className="h-[100%] object-cover"
+        {...imageProps}
+        blurDataURL={image.asset.metadata.lqip}
+        alt={alt[lang]}
+        placeholder="blur"
+        width={2000}
+        height={1000}
+      />
+      <label className="sr-only">© {copyright}</label>
+    </figure>
+  );
+};
+
+export const categoryTranslations: {
+  [key: string]: { fr: string; en: string };
+} = {
+  performance: { fr: "performance", en: "performance" },
+  dessin: { fr: "dessin", en: "drawing" },
+  verre: { fr: "verre", en: "glass" },
+};
+
 function Portfolio({ projects }: { projects: Project[] }) {
   const lang = "fr";
   useEffect(() => {
@@ -21,39 +64,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
       },
     );
   }, []);
-  const SanityImage = ({
-    image,
-    alt,
-    lang,
-    copyright,
-  }: {
-    image: {
-      asset: {
-        metadata: { lqip: string };
-      };
-    };
-    alt: { fr: string; en: string };
-    lang: "fr" | "en";
-    copyright: string;
-  }) => {
-    const imageProps = useSanityImage(image);
-    if (!imageProps || !imageProps.src) {
-      return null;
-    }
-    return (
-      <figure>
-        <Image
-          {...imageProps}
-          blurDataURL={image.asset.metadata.lqip}
-          alt={alt[lang]}
-          placeholder="blur"
-          width={2000}
-          height={1000}
-        />
-        <label className="sr-only">© {copyright}</label>
-      </figure>
-    );
-  };
+
   const ProjectLabel = ({
     title,
     categories,
@@ -63,13 +74,6 @@ function Portfolio({ projects }: { projects: Project[] }) {
     categories: string[];
     year: { start: number; end: number };
   }) => {
-    const categoryTranslations: {
-      [key: string]: { fr: string; en: string };
-    } = {
-      performance: { fr: "performance", en: "performance" },
-      dessin: { fr: "dessin", en: "drawing" },
-      verre: { fr: "verre", en: "glass" },
-    };
     return (
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 to-transparent px-4 pb-2 pt-8">
         <h2 className="font-semibold text-slate-50">{title[lang]}</h2>

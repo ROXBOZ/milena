@@ -73,7 +73,7 @@ function AnimationOnLoad({ onComplete }: { onComplete: () => void }) {
           alt="logo"
           width={500}
           height={500}
-          src="m.svg"
+          src="../milena.svg"
           priority
         />
         <span className="loaderName scale-90 font-semibold">Milena Buckel</span>

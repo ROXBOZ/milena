@@ -21,6 +21,17 @@ interface Category {
   category: "performance | dessin | verre";
 }
 
+interface Role {
+  fr: string;
+  en: string;
+}
+
+interface Contributor {
+  name: string;
+  company: string;
+  roles: Role[];
+}
+
 interface Project {
   title: {
     fr: string;
@@ -31,8 +42,24 @@ interface Project {
     fr: { current: string };
     en: { current: string };
   };
+  externalLink: {
+    url: string;
+    label: {
+      fr: string;
+      en: string;
+    };
+  };
+
+  video: {
+    url: string;
+    label: {
+      fr: string;
+      en: string;
+    };
+  };
 
   categories: string[];
+  duration: string;
   year: {
     start: number;
     end: number;
@@ -45,6 +72,21 @@ interface Project {
       en: string;
     };
     copyright: string;
+  };
+  shortDescription: {
+    fr: string;
+    en: string;
+  };
+  contributors: Contributor[];
+  supporters: string[];
+  performances: {
+    location: string;
+    city: string;
+    dates: string[];
+  }[];
+  acknowledgements: {
+    fr: string;
+    en: string;
   };
 }
 

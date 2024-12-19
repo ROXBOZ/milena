@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 
 function Logo({ isLoaderFinished }: { isLoaderFinished: boolean }) {
@@ -21,17 +22,17 @@ function Logo({ isLoaderFinished }: { isLoaderFinished: boolean }) {
   }, [isLoaderFinished]);
 
   return (
-    <div className="logoHeader flex w-fit items-end gap-2">
+    <Link href="/" className="logoHeader flex w-fit items-end gap-2">
       <Image
         className="headerLogo h-8 w-fit"
         alt="logo"
         width={500}
         height={500}
-        src="m.svg"
+        src="../milena.svg"
         priority
       />
       <span className="headerName font-semibold leading-3">Milena Buckel</span>
-    </div>
+    </Link>
   );
 }
 
