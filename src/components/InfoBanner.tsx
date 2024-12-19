@@ -41,7 +41,7 @@ function InfoBanner({
   return (
     showBanner &&
     infoBannerData.text && (
-      <div className="banner screen-margin flex flex-wrap items-baseline justify-between gap-3 bg-slate-950 bg-gradient-to-b py-3 text-slate-50">
+      <div className="banner screen-margin flex flex-wrap items-baseline justify-between gap-3 bg-stone-950 bg-gradient-to-b py-3 text-stone-50">
         <div>{infoBannerData.text[lang]}</div>
         <div className="flex items-baseline gap-12">
           {infoBannerData.link && (
@@ -55,7 +55,7 @@ function InfoBanner({
           )}
           <button
             onClick={() => setShowBanner(false)}
-            className="flex aspect-square rounded-full p-3 ring-inset transition-all delay-100 hover:bg-slate-900 hover:ring-slate-800 active:bg-slate-800"
+            className="flex aspect-square rounded-full p-3 ring-inset transition-all delay-100 hover:bg-stone-900 hover:ring-stone-800 active:bg-stone-800"
           >
             <span className="leading-3">✕</span>
             <span className="sr-only">fermer</span>

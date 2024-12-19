@@ -32,6 +32,28 @@ interface Contributor {
   roles: Role[];
 }
 
+interface Figure {
+  image: {
+    asset: {
+      _id: string;
+      metadata: { lqip: string };
+    };
+  };
+  alt: {
+    fr: string;
+    en: string;
+  };
+  legend: {
+    fr: string;
+    en: string;
+  };
+  alt: {
+    fr: string;
+    en: string;
+  };
+  copyright: string;
+}
+
 interface Project {
   title: {
     fr: string;
@@ -49,6 +71,13 @@ interface Project {
       en: string;
     };
   };
+
+  gallery: Figure[];
+
+  techniques: {
+    fr: string;
+    en: string;
+  }[];
 
   video: {
     url: string;
@@ -76,6 +105,10 @@ interface Project {
   shortDescription: {
     fr: string;
     en: string;
+  };
+  longDescription: {
+    fr: any;
+    en: any;
   };
   contributors: Contributor[];
   supporters: string[];

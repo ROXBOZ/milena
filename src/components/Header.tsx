@@ -12,7 +12,7 @@ function Header({
   const lang = "fr";
 
   return (
-    <header className="screen-margin flex items-baseline justify-between border-b border-slate-950 py-4">
+    <header className="screen-margin flex items-baseline justify-between border-b border-stone-950 py-4">
       <Logo isLoaderFinished={isLoaderFinished} />
       <nav className="flex gap-8">
         {menu &&

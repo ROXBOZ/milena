@@ -21,9 +21,13 @@ export const SanityImage = ({
   copyright: string;
 }) => {
   const imageProps = useSanityImage(image);
+
+  console.log("imageProps ICICICI", imageProps);
+  console.log("image.asset.metadata.lqip ICICIIC", image.asset.metadata.lqip);
   if (!imageProps || !imageProps.src) {
     return null;
   }
+
   return (
     <figure>
       <Image
@@ -75,9 +79,9 @@ function Portfolio({ projects }: { projects: Project[] }) {
     year: { start: number; end: number };
   }) => {
     return (
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 to-transparent px-4 pb-2 pt-8">
-        <h2 className="font-semibold text-slate-50">{title[lang]}</h2>
-        <div className="flex items-baseline justify-between text-slate-300">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-stone-950 to-transparent px-4 pb-2 pt-8">
+        <h2 className="font-semibold text-stone-50">{title[lang]}</h2>
+        <div className="flex items-baseline justify-between text-stone-300">
           {categories && (
             <p>
               {categories
@@ -105,13 +109,13 @@ function Portfolio({ projects }: { projects: Project[] }) {
   };
 
   return (
-    <div className="max-w-screen h-full flex-1 bg-slate-50 p-3">
+    <div className="max-w-screen h-full flex-1 bg-stone-50 p-3">
       <h1 className="sr-only">Porfolio Milena Buckel</h1>
       <div className="scrollbar-hide flex h-full gap-3 overflow-x-scroll">
         {projects.map((project: Project, index: number) => {
           return (
             <Link key={index} href={`portfolio/${project.slug[lang].current}`}>
-              <div className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-slate-950">
+              <div className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-stone-950">
                 <div
                   className={`absolute left-0 top-0 z-20 transition-all delay-300 duration-500 group-hover:opacity-0`}
                 >
