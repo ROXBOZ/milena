@@ -10,6 +10,7 @@ export const ButtonLink = ({
   children: React.ReactNode;
   color?: "dark" | "light";
   isInternalLink: boolean;
+  //
 }) => {
   return (
     <Link
