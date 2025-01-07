@@ -131,9 +131,15 @@ function Project({
             allowFullScreen
           />
         )}
-        <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col gap-6">
+        <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col bg-red-200">
           {currentProject.longDescription && (
-            <PortableText value={currentProject.longDescription[lang]} />
+            <>
+              <span className="mb-6 text-xs text-red-700">
+                sera mise en page plus tard, quand je verrai le type de contenu
+                qu'on met là
+              </span>
+              <PortableText value={currentProject.longDescription[lang]} />
+            </>
           )}
         </div>
         {currentProject.gallery && (
@@ -159,39 +165,62 @@ function Project({
           </div>
         )}
         <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col gap-6">
-          <div className="mt-3 flex gap-3 pt-1">
-            <div className="flex-1 font-semibold">Techniques</div>
-            <div className="w-fit flex-1">
-              {currentProject.techniques &&
-                currentProject.techniques.map((technique, index: number) => {
-                  return (
-                    <span key={index}>
-                      {technique[lang]}
-                      {index < currentProject.techniques.length - 1 && ", "}
-                    </span>
-                  );
-                })}
+          {currentProject.techniques && (
+            <div className="mt-3 flex items-baseline gap-3 pt-1">
+              <div className="flex-1 font-semibold">Techniques</div>
+              <div className="w-fit flex-1">
+                {currentProject.techniques &&
+                  currentProject.techniques.map((technique, index: number) => {
+                    return (
+                      <span key={index}>
+                        {technique[lang]}
+                        {index < currentProject.techniques.length - 1 && ", "}
+                      </span>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
-          <div className="mt-3 flex gap-3 border-t border-stone-400 pt-1">
-            <div className="flex-1 font-semibold">Représentations</div>
+          )}
+          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1 first:border-t-0 first:pt-0">
+            <div className="flex-1 font-semibold">
+              {currentProject.categories &&
+              currentProject.categories.includes("performance")
+                ? "Performances"
+                : "Évènements"}
+            </div>
             <div className="flex w-fit flex-1 flex-col">
               {currentProject.performances &&
                 currentProject.performances.map(
                   (performance, index: number) => {
+                    const currentDate = new Date();
+
                     return (
                       <div key={index} className="mb-3 flex flex-col">
+                        {performance.title && performance.title[lang] && (
+                          <span className="font-semibold">
+                            {performance.title[lang]}
+                          </span>
+                        )}
+
                         <span>
                           {performance.location}, {performance.city}
                         </span>
                         <span>
                           {performance.dates &&
                             performance.dates.map(
-                              (date: string, index: number) => (
-                                <span key={index}>
-                                  {formatDateToFrench(date)}
-                                </span>
-                              ),
+                              (date: string, index: number) => {
+                                const performanceDate = new Date(date);
+                                const isPastDate =
+                                  performanceDate < currentDate;
+                                return (
+                                  <span
+                                    key={index}
+                                    className={`${isPastDate && "opacity-45"}`}
+                                  >
+                                    {formatDateToFrench(date)}
+                                  </span>
+                                );
+                              },
                             )}
                         </span>
                       </div>
@@ -201,23 +230,21 @@ function Project({
             </div>
           </div>
 
-          <div className="mt-3 flex gap-3 border-t border-stone-400 pt-1">
+          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
             <div className="flex-1 font-semibold">Distribution</div>
             <div className="w-fit flex-1">
               {currentProject.contributors &&
                 currentProject.contributors.map(
                   (contributor: Contributor, index: number) => {
                     return (
-                      <div
-                        key={index}
-                        className="mb-3 flex flex-col gap-1 leading-tight md:flex-row"
-                      >
-                        <div>
-                          <span>{contributor.name}</span>
+                      <div key={index} className="mb-3 leading-tight">
+                        <div className="font-semibold">
+                          <span className="whitespace-nowrap">
+                            {contributor.name}
+                          </span>
                           {contributor.company && (
                             <span>({contributor.company})</span>
                           )}
-                          <span>:</span>
                         </div>
 
                         <div>
@@ -225,7 +252,10 @@ function Project({
                             contributor.roles.map(
                               (role: Role, index: number) => {
                                 return (
-                                  <span key={index}>
+                                  <span
+                                    key={index}
+                                    className={`${lang === "fr" && index !== 0 && "lowercase"}`}
+                                  >
                                     {role[lang]}
                                     {index < contributor.roles.length - 1 &&
                                       ", "}
@@ -240,15 +270,15 @@ function Project({
                 )}
             </div>
           </div>
-          <div className="mt-3 flex gap-3 border-t border-stone-400 pt-1">
+          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
             <div className="flex-1 font-semibold">Soutiens financiers</div>
             <div className="w-fit flex-1">
               {currentProject.supporters &&
                 currentProject.supporters.map((supporter, index: number) => {
                   return (
-                    <span key={index}>
-                      {supporter}
-                      {index > 0 && index < supporter.length - 1 && ", "}
+                    <span key={index} className="">
+                      <span>{supporter}</span>
+                      {index < currentProject.supporters.length - 1 && ", "}
                     </span>
                   );
                 })}

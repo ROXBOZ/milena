@@ -113,6 +113,10 @@ interface Project {
   contributors: Contributor[];
   supporters: string[];
   performances: {
+    title: {
+      fr: string;
+      en: string;
+    };
     location: string;
     city: string;
     dates: string[];
