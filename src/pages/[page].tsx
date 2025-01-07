@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-
 import Layout from "@/components/Layout";
 import { PortableText } from "@portabletext/react";
-import Portfolio from "@/components/Portfolio";
+import React from "react";
 import { client } from "../../config/sanity";
 
 export default function Page({
@@ -14,7 +12,6 @@ export default function Page({
   menus: Menus[];
   currentPage: Page;
 }) {
-  const [isLoaderFinished, setIsLoaderFinished] = useState(true);
   const lang = "fr";
   const isAboutPage =
     currentPage._id === "9861c21d-5452-42d2-9b2e-fab56f6b3e32";
@@ -80,12 +77,7 @@ export default function Page({
   };
 
   return (
-    <Layout
-      settings={settings}
-      isLoaderFinished={isLoaderFinished}
-      setIsLoaderFinished={setIsLoaderFinished}
-      menus={menus}
-    >
+    <Layout settings={settings} menus={menus}>
       <div className="screen-margin mx-auto mb-48 mt-24 w-full max-w-[65ch]">
         <div>
           {currentPage.title &&

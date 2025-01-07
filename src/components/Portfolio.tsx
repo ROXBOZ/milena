@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
+import React from "react";
 import { useSanityImage } from "../../config/sanity";
 
 export const SanityImage = ({
@@ -22,8 +20,6 @@ export const SanityImage = ({
 }) => {
   const imageProps = useSanityImage(image);
 
-  console.log("imageProps ICICICI", imageProps);
-  console.log("image.asset.metadata.lqip ICICIIC", image.asset.metadata.lqip);
   if (!imageProps || !imageProps.src) {
     return null;
   }
@@ -54,20 +50,20 @@ export const categoryTranslations: {
 
 function Portfolio({ projects }: { projects: Project[] }) {
   const lang = "fr";
-  useEffect(() => {
-    gsap.fromTo(
-      ".project",
-      {
-        opacity: 0,
-      },
-      {
-        delay: 1,
-        duration: 1,
-        opacity: 1,
-        stagger: 0.2,
-      },
-    );
-  }, []);
+  // useEffect(() => {
+  //   gsap.fromTo(
+  //     ".project",
+  //     {
+  //       opacity: 0,
+  //     },
+  //     {
+  //       delay: 1,
+  //       duration: 1,
+  //       opacity: 1,
+  //       stagger: 0.2,
+  //     },
+  //   );
+  // }, []);
 
   const ProjectLabel = ({
     title,

@@ -1,25 +1,20 @@
-import React, { useEffect } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
+import React from "react";
+// import gsap from "gsap";
 
-function Logo({ isLoaderFinished }: { isLoaderFinished: boolean }) {
-  useEffect(() => {
-    if (isLoaderFinished) {
-      gsap.fromTo(
-        ".headerLogo",
-        { opacity: 0, x: -50 },
-        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" },
-      );
+function Logo() {
+  // gsap.fromTo(
+  //   ".headerLogo",
+  //   { opacity: 0, x: -50 },
+  //   { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" },
+  // );
 
-      gsap.fromTo(
-        ".headerName",
-        { opacity: 0, x: -50 },
-        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.2 },
-      );
-    }
-  }, [isLoaderFinished]);
+  // gsap.fromTo(
+  //   ".headerName",
+  //   { opacity: 0, x: -50 },
+  //   { opacity: 1, x: 0, duration: 0.8, ease: "power2.out", delay: 0.2 },
+  // );
 
   return (
     <Link href="/" className="logoHeader flex w-fit items-end gap-2">

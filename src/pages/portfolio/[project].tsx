@@ -1,9 +1,9 @@
-import React, { useState } from "react";
 import { SanityImage, categoryTranslations } from "@/components/Portfolio";
 
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import React from "react";
 import { client } from "../../../config/sanity";
 
 export function formatDuration(duration: string): string {
@@ -44,15 +44,9 @@ function Project({
   menus: Menus[];
 }) {
   const lang = "fr";
-  const [isLoaderFinished, setIsLoaderFinished] = useState(true);
 
   return (
-    <Layout
-      settings={settings}
-      isLoaderFinished={isLoaderFinished}
-      setIsLoaderFinished={setIsLoaderFinished}
-      menus={menus}
-    >
+    <Layout settings={settings} menus={menus}>
       <div className="flex min-h-fit flex-col px-3">
         <div className="relative flex h-[60ch] min-w-full overflow-hidden pt-3">
           <SanityImage
@@ -136,7 +130,7 @@ function Project({
             <>
               <span className="mb-6 text-xs text-red-700">
                 sera mise en page plus tard, quand je verrai le type de contenu
-                qu'on met là
+                qu’on met là
               </span>
               <PortableText value={currentProject.longDescription[lang]} />
             </>

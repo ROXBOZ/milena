@@ -2,18 +2,12 @@ import Link from "next/link";
 import Logo from "./Logo";
 import React from "react";
 
-function Header({
-  isLoaderFinished,
-  menu,
-}: {
-  isLoaderFinished: boolean;
-  menu: HeaderMenu[];
-}) {
+function Header({ menu }: { menu: HeaderMenu[] }) {
   const lang = "fr";
 
   return (
     <header className="screen-margin flex items-baseline justify-between border-b border-stone-950 py-4">
-      <Logo isLoaderFinished={isLoaderFinished} />
+      <Logo />
       <nav className="flex gap-8">
         {menu &&
           menu.map((item: HeaderMenu, index: number) => {

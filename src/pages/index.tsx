@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-
 import Layout from "@/components/Layout";
 import Portfolio from "@/components/Portfolio";
+import React from "react";
 import { client } from "../../config/sanity";
 
 export default function Home({
@@ -13,16 +12,9 @@ export default function Home({
   projects: Project[];
   menus: Menus[];
 }) {
-  const [isLoaderFinished, setIsLoaderFinished] = useState(false);
-
   return (
-    <Layout
-      settings={settings}
-      isLoaderFinished={isLoaderFinished}
-      setIsLoaderFinished={setIsLoaderFinished}
-      menus={menus}
-    >
-      {isLoaderFinished && <Portfolio projects={projects} />}
+    <Layout settings={settings} menus={menus}>
+      <Portfolio projects={projects} />
     </Layout>
   );
 }

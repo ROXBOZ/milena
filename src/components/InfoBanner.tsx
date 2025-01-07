@@ -1,42 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { ButtonLink } from "./UI/ButtonLink";
-import gsap from "gsap";
 
-function InfoBanner({
-  infoBannerData,
-  isLoaderFinished,
-}: {
-  infoBannerData: InfoBanner;
-  isLoaderFinished: boolean;
-}) {
+function InfoBanner({ infoBannerData }: { infoBannerData: InfoBanner }) {
   const [showBanner, setShowBanner] = useState(true);
   const lang = "fr";
 
   const isInternalLink = infoBannerData.link?.url.includes("milena");
 
-  useEffect(() => {
-    if (isLoaderFinished) {
-      setShowBanner(true);
+  // useEffect(() => {
+  //   setShowBanner(true);
 
-      gsap.fromTo(
-        ".banner",
-        {
-          height: 0,
-          opacity: 0,
-          overflow: "hidden",
-          clipPath: "inset(0 0 100% 0)",
-        },
-        {
-          height: "auto",
-          opacity: 1,
-          clipPath: "inset(0 0 0% 0)",
-          duration: 0.5,
-          ease: "power2.out",
-        },
-      );
-    }
-  }, [isLoaderFinished]);
+  //   gsap.fromTo(
+  //     ".banner",
+  //     {
+  //       height: 0,
+  //       opacity: 0,
+  //       overflow: "hidden",
+  //       clipPath: "inset(0 0 100% 0)",
+  //     },
+  //     {
+  //       height: "auto",
+  //       opacity: 1,
+  //       clipPath: "inset(0 0 0% 0)",
+  //       duration: 0.5,
+  //       ease: "power2.out",
+  //     },
+  //   );
+  // }, []);
 
   return (
     showBanner &&
