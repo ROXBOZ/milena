@@ -15,6 +15,21 @@ interface InfoBanner {
 interface Settings {
   userName: string;
   infoBanner: InfoBanner;
+  bio: {
+    fr: any;
+    en: any;
+  };
+  cv: {
+    category: string;
+    title: {
+      fr: string;
+      en: string;
+    };
+    year: {
+      start: number;
+      end: number;
+    };
+  }[];
 }
 
 interface Category {
@@ -167,4 +182,16 @@ interface HeaderMenu {
 
 interface LayoutMenu {
   headerMenu: HeaderMenu[];
+}
+
+interface Page {
+  _id: string;
+  name: {
+    fr: string;
+    en: string;
+  };
+  title: {
+    fr: string;
+    en: string;
+  };
 }

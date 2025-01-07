@@ -14,7 +14,7 @@ export default function Home({
   menus: Menus[];
 }) {
   const [isLoaderFinished, setIsLoaderFinished] = useState(false);
-  console.log("menus home", menus);
+
   return (
     <Layout
       settings={settings}
