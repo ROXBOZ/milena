@@ -12,7 +12,7 @@ function Header({ menu }: { menu: HeaderMenu[] }) {
         {menu &&
           menu.map((item: HeaderMenu, index: number) => {
             return (
-              <Link key={index} href={item.slug[lang].current}>
+              <Link key={index} href={ `/${item.slug[lang].current}`}>
                 {item.name[lang]}
               </Link>
             );

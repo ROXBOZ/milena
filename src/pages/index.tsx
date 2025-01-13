@@ -24,7 +24,7 @@ export const getStaticProps = async () => {
     const menus = await client.fetch('*[_type == "menus"]{headerMenu[]->}');
     const settings = await client.fetch('*[_type == "settings"][0]');
     const projects = await client.fetch(
-      '*[_type == "project"]{..., cover{..., image{..., asset->{..., metadata {..., lqip}}},  hoverImage{..., asset->{..., metadata {..., lqip}}}}}',
+      '*[_type == "project"  && !(_id in path("drafts.**"))]{..., cover{..., image{..., asset->{..., metadata {..., lqip}}},  hoverImage{..., asset->{..., metadata {..., lqip}}}}}',
     );
     return {
       props: {

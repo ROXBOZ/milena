@@ -19,6 +19,7 @@ interface Settings {
     fr: any;
     en: any;
   };
+  email: string;
   cv: {
     category: string;
     title: {
@@ -88,6 +89,38 @@ interface Project {
   };
 
   gallery: Figure[];
+  soldItem: {
+    itemTitle: {
+      fr: string;
+      en: string;
+    };
+    itemDescription: {
+      fr: string;
+      en: string;
+    };
+    sellers: {
+      name: {
+        fr: string;
+        en: string;
+      };
+      city: {
+        fr: string;
+        en: string;
+      };
+      url: string;
+    }[];
+    orderPerEmail: boolean;
+    email: {
+      subject: {
+        fr: string;
+        en: string;
+      };
+      message: {
+        fr: string;
+        en: string;
+      };
+    };
+  };
 
   techniques: {
     fr: string;
