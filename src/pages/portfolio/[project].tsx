@@ -47,13 +47,18 @@ function Project({
   return (
     <Layout settings={settings} menus={menus}>
       <div className="flex min-h-fit flex-col px-3">
-        <div className="relative flex h-[60ch] min-w-full overflow-hidden pt-3">
-          <SanityImage
-            image={currentProject.cover.image}
-            alt={currentProject.cover.alt}
-            lang={lang}
-            copyright={currentProject.cover.copyright}
-          />
+        <div className="relative flex min-w-full flex-col pt-3">
+          <div className="h-[60ch] overflow-hidden">
+            <SanityImage
+              image={currentProject.cover.image}
+              alt={currentProject.cover.alt}
+              lang={lang}
+              copyright={currentProject.cover.copyright}
+            />
+          </div>
+          <span className="text-right text-xs italic">
+            © {currentProject.cover.copyright}
+          </span>
         </div>
         <div className="mx-auto mb-12 mt-24 flex w-full max-w-[65ch] flex-col gap-6">
           <div className="flex flex-col gap-3">
@@ -104,7 +109,7 @@ function Project({
           {currentProject.soldItem &&
             currentProject.soldItem.itemTitle &&
             currentProject.soldItem.itemTitle[lang] && (
-              <div className="bg-stone-950 p-6 text-stone-50">
+              <div className="bg-stone-950 px-6 pb-6 pt-4 text-stone-50">
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col gap-1">
                     <h2 className="text-lg font-semibold">
@@ -223,109 +228,116 @@ function Project({
               </div>
             </div>
           )}
-          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1 first:border-t-0 first:pt-0">
-            <div className="flex-1 font-semibold">
-              {currentProject.categories &&
-              currentProject.categories.includes("performance")
-                ? "Performances"
-                : "Évènements"}
-            </div>
-            <div className="flex w-fit flex-1 flex-col">
-              {currentProject.performances &&
-                currentProject.performances.map(
-                  (performance, index: number) => {
-                    const currentDate = new Date();
+          {currentProject.performances && (
+            <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1 first:border-t-0 first:pt-0">
+              <div className="flex-1 font-semibold">
+                {currentProject.categories &&
+                currentProject.categories.includes("performance")
+                  ? "Performances"
+                  : "Évènements"}
+              </div>
+              <div className="flex w-fit flex-1 flex-col">
+                {currentProject.performances &&
+                  currentProject.performances.map(
+                    (performance, index: number) => {
+                      const currentDate = new Date();
 
-                    return (
-                      <div key={index} className="mb-3 flex flex-col">
-                        {performance.title && performance.title[lang] && (
-                          <span className="font-semibold">
-                            {performance.title[lang]}
-                          </span>
-                        )}
-
-                        <span>
-                          {performance.location}, {performance.city}
-                        </span>
-                        <span>
-                          {performance.dates &&
-                            performance.dates.map(
-                              (date: string, index: number) => {
-                                const performanceDate = new Date(date);
-                                const isPastDate =
-                                  performanceDate < currentDate;
-                                return (
-                                  <span
-                                    key={index}
-                                    className={`${isPastDate && "opacity-45"}`}
-                                  >
-                                    {formatDateToFrench(date)}
-                                  </span>
-                                );
-                              },
-                            )}
-                        </span>
-                      </div>
-                    );
-                  },
-                )}
-            </div>
-          </div>
-
-          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
-            <div className="flex-1 font-semibold">Distribution</div>
-            <div className="w-fit flex-1">
-              {currentProject.contributors &&
-                currentProject.contributors.map(
-                  (contributor: Contributor, index: number) => {
-                    return (
-                      <div key={index} className="mb-3 leading-tight">
-                        <div className="font-semibold">
-                          <span className="whitespace-nowrap">
-                            {contributor.name}
-                          </span>
-                          {contributor.company && (
-                            <span>({contributor.company})</span>
+                      return (
+                        <div key={index} className="mb-3 flex flex-col">
+                          {performance.title && performance.title[lang] && (
+                            <span className="font-semibold">
+                              {performance.title[lang]}
+                            </span>
                           )}
-                        </div>
 
-                        <div>
-                          {contributor.roles &&
-                            contributor.roles.map(
-                              (role: Role, index: number) => {
-                                return (
-                                  <span
-                                    key={index}
-                                    className={`${lang === "fr" && index !== 0 && "lowercase"}`}
-                                  >
-                                    {role[lang]}
-                                    {index < contributor.roles.length - 1 &&
-                                      ", "}
-                                  </span>
-                                );
-                              },
-                            )}
+                          <span>
+                            {performance.location}, {performance.city}
+                          </span>
+                          <span>
+                            {performance.dates &&
+                              performance.dates.map(
+                                (date: string, index: number) => {
+                                  const performanceDate = new Date(date);
+                                  const isPastDate =
+                                    performanceDate < currentDate;
+                                  return (
+                                    <span
+                                      key={index}
+                                      className={`${isPastDate && "opacity-45"}`}
+                                    >
+                                      {formatDateToFrench(date)}
+                                    </span>
+                                  );
+                                },
+                              )}
+                          </span>
                         </div>
-                      </div>
+                      );
+                    },
+                  )}
+              </div>
+            </div>
+          )}
+
+          {currentProject.contributors && (
+            <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
+              <div className="flex-1 font-semibold">Distribution</div>
+              <div className="w-fit flex-1">
+                {currentProject.contributors &&
+                  currentProject.contributors.map(
+                    (contributor: Contributor, index: number) => {
+                      return (
+                        <div key={index} className="mb-3 leading-tight">
+                          <div className="font-semibold">
+                            <span className="whitespace-nowrap">
+                              {contributor.name}
+                            </span>
+                            {contributor.company && (
+                              <span>({contributor.company})</span>
+                            )}
+                          </div>
+
+                          <div>
+                            {contributor.roles &&
+                              contributor.roles.map(
+                                (role: Role, index: number) => {
+                                  return (
+                                    <span
+                                      key={index}
+                                      className={`${lang === "fr" && index !== 0 && "lowercase"}`}
+                                    >
+                                      {role[lang]}
+                                      {index < contributor.roles.length - 1 &&
+                                        ", "}
+                                    </span>
+                                  );
+                                },
+                              )}
+                          </div>
+                        </div>
+                      );
+                    },
+                  )}
+              </div>
+            </div>
+          )}
+          {currentProject.supporters && (
+            <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
+              <div className="flex-1 font-semibold">Soutiens financiers</div>
+              <div className="w-fit flex-1">
+                {currentProject.supporters &&
+                  currentProject.supporters.map((supporter, index: number) => {
+                    return (
+                      <span key={index} className="">
+                        <span>{supporter}</span>
+                        {index < currentProject.supporters.length - 1 && ", "}
+                      </span>
                     );
-                  },
-                )}
+                  })}
+              </div>
             </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-3 border-t border-stone-400 pt-1">
-            <div className="flex-1 font-semibold">Soutiens financiers</div>
-            <div className="w-fit flex-1">
-              {currentProject.supporters &&
-                currentProject.supporters.map((supporter, index: number) => {
-                  return (
-                    <span key={index} className="">
-                      <span>{supporter}</span>
-                      {index < currentProject.supporters.length - 1 && ", "}
-                    </span>
-                  );
-                })}
-            </div>
-          </div>
+          )}
+
           {currentProject.acknowledgements && (
             <div className="mt-3 pt-1 text-sm">
               {currentProject.acknowledgements[lang]}

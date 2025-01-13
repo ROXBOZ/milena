@@ -25,15 +25,15 @@ export const SanityImage = ({
   }
 
   return (
-    <figure>
+    <figure className="h-full">
       <Image
-        className="h-[100%] object-cover"
         {...imageProps}
         blurDataURL={image.asset.metadata.lqip}
         alt={alt[lang]}
         placeholder="blur"
-        width={2000}
-        height={1000}
+        width={3000}
+        height={3000}
+        className="h-full object-cover"
       />
       <label className="sr-only">© {copyright}</label>
     </figure>
@@ -111,9 +111,9 @@ function Portfolio({ projects }: { projects: Project[] }) {
         {projects.map((project: Project, index: number) => {
           return (
             <Link key={index} href={`portfolio/${project.slug[lang].current}`}>
-              <div className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-stone-950">
+              <div className="project group relative flex aspect-[2/3] h-full shrink-0 overflow-hidden bg-red-500">
                 <div
-                  className={`absolute left-0 top-0 z-20 transition-all delay-300 duration-500 group-hover:opacity-0`}
+                  className={`absolute left-0 top-0 z-20 h-full transition-all delay-300 duration-500 group-hover:opacity-0`}
                 >
                   <SanityImage
                     image={project.cover.image}
@@ -122,7 +122,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
                     copyright={project.cover.copyright}
                   />
                 </div>
-                <div className="absolute left-0 top-0 z-10">
+                <div className="absolute left-0 top-0 z-10 h-full">
                   <ProjectLabel
                     title={project.title}
                     categories={project.categories}
