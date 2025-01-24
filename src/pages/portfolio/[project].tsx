@@ -2,6 +2,7 @@ import { SanityImage, categoryTranslations } from "@/components/Portfolio";
 
 import Layout from "@/components/Layout";
 import Link from "next/link";
+import { PortableText } from "@portabletext/react";
 import React from "react";
 import { client } from "../../../config/sanity";
 
@@ -119,39 +120,52 @@ function Project({
                       <p>{currentProject.soldItem.itemDescription[lang]}</p>
                     )}
                   </div>
-                  {currentProject.soldItem.sellers && (
-                    <div>
-                      <h3 className="font-semibold">
-                        {lang === "fr" ? "Points de vente" : "Store Locations"}
-                      </h3>
-                      <ul>
-                        {currentProject.soldItem.sellers.map(
-                          (seller, index: number) => {
-                            return (
-                              <li key={index} className="list-inside list-disc">
-                                <Link
-                                  className="border-b border-stone-50 delay-300 hover:border-transparent hover:transition-all"
-                                  href={seller.url}
+                  {currentProject.soldItem &&
+                    currentProject.soldItem.sellers && (
+                      <div>
+                        <h3 className="font-semibold">
+                          {lang === "fr"
+                            ? "Points de vente"
+                            : "Store Locations"}
+                        </h3>
+                        <ul>
+                          {currentProject.soldItem.sellers.map(
+                            (seller, index: number) => {
+                              return (
+                                <li
+                                  key={index}
+                                  className="list-inside list-disc"
                                 >
-                                  {seller.name[lang]}
-                                </Link>
-                                , <span>{seller.city[lang]}</span>
-                              </li>
-                            );
-                          },
-                        )}
-                      </ul>
-                    </div>
-                  )}
+                                  <Link
+                                    className="border-b border-stone-50 delay-300 hover:border-transparent hover:transition-all"
+                                    href={seller.url}
+                                  >
+                                    {seller.name[lang]}
+                                  </Link>
+                                  , <span>{seller.city[lang]}</span>
+                                </li>
+                              );
+                            },
+                          )}
+                        </ul>
+                      </div>
+                    )}
 
-                  {currentProject.soldItem.orderPerEmail === true && (
-                    <Link
-                      className="w-fit bg-stone-50 px-3 py-2 text-stone-950 ring-inset hover:ring-4 hover:ring-stone-200 hover:transition-all active:bg-stone-200"
-                      href={`mailto:${settings.email}?subject=${currentProject.soldItem.email.subject[lang]} website&body=${currentProject.soldItem.email.message[lang]}`}
-                    >
-                      {lang === "fr" ? "Commander par email" : "Order by email"}
-                    </Link>
-                  )}
+                  {currentProject.soldItem &&
+                    currentProject.soldItem.orderPerEmail === true && (
+                      <Link
+                        className="w-fit bg-stone-50 px-3 py-2 text-stone-950 ring-inset hover:ring-4 hover:ring-stone-200 hover:transition-all active:bg-stone-200"
+                        href={`mailto:${settings.email || ""}?subject=${
+                          currentProject.soldItem?.email?.subject?.[lang] || ""
+                        } website&body=${
+                          currentProject.soldItem?.email?.message?.[lang] || ""
+                        }`}
+                      >
+                        {lang === "fr"
+                          ? "Commander par email"
+                          : "Order by email"}
+                      </Link>
+                    )}
                 </div>
               </div>
             )}
@@ -178,7 +192,7 @@ function Project({
             allowFullScreen
           />
         )}
-        {/* <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col bg-red-200">
+        <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col bg-red-200">
           {currentProject.longDescription && (
             <>
               <span className="mb-6 text-xs text-red-700">
@@ -188,8 +202,8 @@ function Project({
               <PortableText value={currentProject.longDescription[lang]} />
             </>
           )}
-        </div> */}
-        {/* {currentProject.gallery && (
+        </div>
+        {currentProject.gallery && (
           <div className="max-w-1/3 bg-green-500">
             Ici il faut uploader les images pour chaque projet pour que je voie
             comment les afficher
@@ -210,7 +224,7 @@ function Project({
               })}
             </div>
           </div>
-        )} */}
+        )}
         <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col gap-6">
           {currentProject.techniques && (
             <div className="mt-3 flex items-baseline gap-3 pt-1">
