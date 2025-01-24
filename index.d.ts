@@ -52,7 +52,7 @@ interface Figure {
   image: {
     asset: {
       _id: string;
-      metadata: { lqip: string };
+      metadata: { lqip: string; dimensions: { width: string; height: string } };
     };
   };
   alt: {

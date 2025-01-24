@@ -8,6 +8,7 @@ export const SanityImage = ({
   alt,
   lang,
   copyright,
+  isCover,
 }: {
   image: {
     asset: {
@@ -17,6 +18,7 @@ export const SanityImage = ({
   alt: { fr: string; en: string };
   lang: "fr" | "en";
   copyright: string;
+  isCover: boolean;
 }) => {
   const imageProps = useSanityImage(image);
 
@@ -32,8 +34,7 @@ export const SanityImage = ({
         alt={alt[lang]}
         placeholder="blur"
         width={3000}
-        height={3000}
-        className="h-full object-cover"
+        className={`h-full ${isCover ? "object-cover" : "object-contain"}`}
       />
       <label className="sr-only">© {copyright}</label>
     </figure>
@@ -120,6 +121,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
                     alt={project.cover.alt}
                     lang={lang}
                     copyright={project.cover.copyright}
+                    isCover={true}
                   />
                 </div>
                 <div className="absolute left-0 top-0 z-10 h-full">
@@ -134,6 +136,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
                       image={project.cover.hoverImage}
                       alt={project.cover.alt}
                       copyright={project.cover.copyright}
+                      isCover={true}
                     />
                   ) : (
                     <SanityImage
@@ -141,6 +144,7 @@ function Portfolio({ projects }: { projects: Project[] }) {
                       alt={project.cover.alt}
                       lang={lang}
                       copyright={project.cover.copyright}
+                      isCover={true}
                     />
                   )}
                 </div>

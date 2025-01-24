@@ -38,10 +38,14 @@ function Project({
   menus,
   settings,
   currentProject,
+  prevProject,
+  nextProject,
 }: {
   settings: Settings;
   currentProject: Project;
   menus: Menus[];
+  prevProject: Project | null;
+  nextProject: Project | null;
 }) {
   const lang = "fr";
 
@@ -55,6 +59,7 @@ function Project({
               alt={currentProject.cover.alt}
               lang={lang}
               copyright={currentProject.cover.copyright}
+              isCover={true}
             />
           </div>
           <span className="text-right text-xs italic">
@@ -204,27 +209,25 @@ function Project({
           )}
         </div>
         {currentProject.gallery && (
-          <div className="max-w-1/3 bg-green-500">
-            Ici il faut uploader les images pour chaque projet pour que je voie
-            comment les afficher
-            <div className="flex flex-wrap gap-3">
-              {currentProject.gallery.map((figure: Figure, index: number) => {
-                return (
-                  <div key={index} className="flex-1">
-                    {figure.image && (
-                      <SanityImage
-                        image={figure.image}
-                        alt={figure.alt}
-                        lang={lang}
-                        copyright={figure.copyright}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          <div className="columns-1 gap-3 md:columns-2 lg:columns-3 xl:columns-4">
+            {currentProject.gallery.map((figure: Figure, index: number) => {
+              return (
+                <div key={index} className="my-3 first:mt-0 last:mb-0">
+                  {figure.image && (
+                    <SanityImage
+                      image={figure.image}
+                      alt={figure.alt}
+                      lang={lang}
+                      copyright={figure.copyright}
+                      isCover={false}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
+
         <div className="mx-auto mb-24 mt-12 flex w-full max-w-[65ch] flex-col gap-6">
           {currentProject.techniques && (
             <div className="mt-3 flex items-baseline gap-3 pt-1">
@@ -357,6 +360,25 @@ function Project({
               {currentProject.acknowledgements[lang]}
             </div>
           )}
+
+          <div className="mt-12 flex justify-between border-t border-stone-400 pt-1">
+            {prevProject && (
+              <Link
+                className="font-semibold"
+                href={`/${lang}/portfolio/${prevProject.slug[lang].current}`}
+              >
+                ← {prevProject.title[lang]}
+              </Link>
+            )}
+            {nextProject && (
+              <Link
+                className="font-semibold"
+                href={`/${lang}/portfolio/${nextProject.slug[lang].current}`}
+              >
+                {nextProject.title[lang]} →
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </Layout>
@@ -413,10 +435,22 @@ export const getStaticProps = async ({
     const menus = await client.fetch('*[_type == "menus"]{headerMenu[]->}');
     const settings = await client.fetch('*[_type == "settings"][0]');
     const query = `
-      *[_type == "project" && slug[$locale].current == $slug && !(_id in path("drafts.**"))]{..., soldItem, gallery[]{..., image{..., asset->{..., metadata{lqip}}}}, cover{..., image{..., asset->{..., metadata {..., lqip}}},  hoverImage{..., asset->{..., metadata {..., lqip}}}}}
+      *[_type == "project" && slug[$locale].current == $slug && !(_id in path("drafts.**"))]{..., soldItem, gallery[]{..., image{..., asset->{..., metadata{..., lqip}}}}, cover{..., image{..., asset->{..., metadata {..., lqip}}},  hoverImage{..., asset->{..., metadata {..., lqip}}}}}
+    `;
+
+    const navigationQuery = `
+      {
+        "prev": *[_type == "project" && slug[$locale].current < $slug && !(_id in path("drafts.**"))] | order(slug[$locale].current desc)[0],
+        "next": *[_type == "project" && slug[$locale].current > $slug && !(_id in path("drafts.**"))] | order(slug[$locale].current asc)[0]
+      }
     `;
 
     const currentProject: Project[] = await client.fetch(query, {
+      slug: project,
+      locale,
+    });
+
+    const navigation = await client.fetch(navigationQuery, {
       slug: project,
       locale,
     });
@@ -425,7 +459,9 @@ export const getStaticProps = async ({
       props: {
         menus,
         settings,
-        currentProject: currentProject[0] || null, // Ensure there is a valid current project or null
+        currentProject: currentProject[0] || null,
+        prevProject: navigation.prev || null,
+        nextProject: navigation.next || null,
       },
     };
   } catch (error) {
