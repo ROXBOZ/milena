@@ -12,7 +12,7 @@ export function formatDuration(duration: string): string {
   const formattedDuration =
     hours === "00"
       ? `${parseInt(minutes, 10)}min.${parseInt(seconds, 10)}`
-      : `${parseInt(hours, 10)}h${parseInt(minutes, 10)}min.${parseInt(seconds, 10)}`;
+      : `${parseInt(hours, 10)}h${parseInt(minutes, 10)}min.`;
 
   return formattedDuration;
 }
